@@ -1,4 +1,4 @@
-package JuegoTetris;
+    package JuegoTetris;
 
 import java.awt.Graphics;
 import javax.swing.JFrame;
@@ -19,6 +19,7 @@ public class Ventana {
         
         pantalla = new Pantalla();
         ventana.add(pantalla);
+        ventana.addKeyListener(pantalla);
         ventana.setVisible(true);
     }        
     
