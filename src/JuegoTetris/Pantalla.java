@@ -35,13 +35,29 @@ public class Pantalla extends JPanel implements KeyListener{
     private int TiempoDelayMovi = normal;
     private long InicTiempo;
     
+    private int MovX=0;    
+    private boolean Colicion=false;
+    
     public Pantalla(){        
     ciclo = new Timer(Delay, new ActionListener() {
         int n = 0;
         @Override
         public void actionPerformed(ActionEvent arg0) {
+            if(Colicion){
+                return;
+            }
+            
+            //Movimiento lateral (limites laterales)
+            if(!(x+MovX+forma[0].length>10)&&!(x+MovX<0)){
+            x+=MovX;}
+            MovX=0;  
             if(System.currentTimeMillis()-InicTiempo>TiempoDelayMovi){
-                y++;
+                if(!(y+1+forma.length>PantalaHeigth)){
+                y++;}
+            else{
+                Colicion=true;
+                }
+                
                 InicTiempo =System.currentTimeMillis();
             }
             
@@ -90,6 +106,10 @@ public class Pantalla extends JPanel implements KeyListener{
     public void keyPressed(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
             TiempoDelayMovi= rapid;
+        }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+            MovX=1;
+        }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+            MovX=-1;
         }
     }
  
