@@ -22,7 +22,7 @@ public class Pantalla extends JPanel implements KeyListener{
     public static final int PantalaHeigth=20;
     public static final int TamañoBloque=30;
     private Timer ciclo;
-    private Color [][] pantalla = new Color[PantalaWidht][PantalaHeigth];
+    private Color [][] pantalla = new Color[PantalaHeigth][PantalaWidht];
     private Color[] colors = {Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"), 
         Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
     
@@ -82,7 +82,11 @@ public class Pantalla extends JPanel implements KeyListener{
     private void Actualizar(){
         FormaActual.Actualizar();
     }
-            
+     
+    public void SiguienteForma(){
+        FormaActual = formas[1];
+        FormaActual.Reset();
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -94,6 +98,17 @@ public class Pantalla extends JPanel implements KeyListener{
 
 //dibujar cuadricula
        
+        for(int fila=0; fila<pantalla.length;fila++){
+                for(int col=0;col<pantalla[0].length;col ++){
+                    if(pantalla[fila][col] != null){
+                        g.setColor(pantalla[fila][col]);
+                        g.fillRect(col*TamañoBloque, fila*TamañoBloque, TamañoBloque, TamañoBloque );
+                    }
+                    
+                                        
+                }
+            }
+        
         g.setColor(Color.white);
         for(int fil = 0; fil<PantalaHeigth; fil++){
             
@@ -105,6 +120,9 @@ public class Pantalla extends JPanel implements KeyListener{
                
     }
     
+    public Color[][]getPantalla(){
+        return pantalla;
+    }
     
     @Override
     public void keyPressed(KeyEvent e ){
@@ -128,6 +146,8 @@ public class Pantalla extends JPanel implements KeyListener{
     public void keyTyped(KeyEvent arg0) {
         
     }
+
+    
 
         
 }

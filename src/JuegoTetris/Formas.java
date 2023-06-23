@@ -14,14 +14,43 @@ public class Formas {
     
     private int MovX=0;    
     private boolean Colicion=false; 
-    private int [][]Coords;
+    
+    private int [][] Coords;
+    private Pantalla pantalla;
+    private Color color;
     
     public Formas(int [][]Coords, Pantalla pantalla, Color color){
          this.Coords=Coords;
+         this.pantalla=pantalla;
+         this.color=color;
+    }
+    
+    public void SetX(int x){
+        this.x = x;
+    }    
+    public void Sety(int y){
+        this.y = y;
+    }
+    public void Reset(){
+        this.x=4;
+        this.y=0;
+        Colicion=false;
     }
     
     public void Actualizar(){
         if(Colicion){
+            //llegan los colores de la pantalla 
+            for(int fila=0; fila<Coords.length;fila++){
+                for(int col=0;col<Coords[0].length;col ++){
+                    if(Coords[fila][col] != 0){
+                        pantalla.getPantalla()[y+fila][x+col]=color;
+                    }
+                    
+                                        
+                }
+            }
+                pantalla.SiguienteForma();  
+                        
                 return;
             }
             
