@@ -121,7 +121,6 @@ public class Pantalla extends JPanel implements KeyListener{
     public void keyReleased(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
             FormaActual.Normal();
-            //te amo ale
         }
     }
 
