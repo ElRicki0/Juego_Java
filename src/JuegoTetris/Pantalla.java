@@ -23,17 +23,52 @@ public class Pantalla extends JPanel implements KeyListener{
     public static final int TamañoBloque=30;
     private Timer ciclo;
     private Color [][] pantalla = new Color[PantalaWidht][PantalaHeigth];
+    private Color[] colors = {Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"), 
+        Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
     
-    private int [][] forma1 ={
-        {1, 1, 1},
-        {0, 1, 0}
-        
-    };
+    private Formas[] formas = new Formas[7];
+    private Formas FormaActual;
     
-    private Formas formas= new Formas(forma1);
     
     public Pantalla(){        
-    ciclo = new Timer(Delay, new ActionListener() {
+    
+        formas[0] = new Formas(new int[][]{
+            {1, 1, 1, 1} // Forma I 
+        }, this, colors[0]);
+
+        formas[1] = new Formas(new int[][]{
+            {1, 1, 1},
+            {0, 1, 0}, // forma T
+        }, this, colors[1]);
+
+        formas[2] = new Formas(new int[][]{
+            {1, 1, 1},
+            {1, 0, 0}, // Forma L 
+        }, this, colors[2]);
+
+        formas[3] = new Formas(new int[][]{
+            {1, 1, 1},
+            {0, 0, 1}, // Forma J 
+        }, this, colors[3]);
+
+        formas[4] = new Formas(new int[][]{
+            {0, 1, 1},
+            {1, 1, 0}, // Forma S
+        }, this, colors[4]);
+
+        formas[5] = new Formas(new int[][]{
+            {1, 1, 0},
+            {0, 1, 1}, // Forma Z
+        }, this, colors[5]);
+
+        formas[6] = new Formas(new int[][]{
+            {1, 1},
+            {1, 1}, // Forma O 
+        }, this, colors[6]);
+        
+        FormaActual = formas[0];
+        
+        ciclo = new Timer(Delay, new ActionListener() {
         int n = 0;
         @Override
         public void actionPerformed(ActionEvent arg0) {
@@ -45,7 +80,7 @@ public class Pantalla extends JPanel implements KeyListener{
             
             }
     private void Actualizar(){
-        formas.Actualizar();
+        FormaActual.Actualizar();
     }
             
 
@@ -55,7 +90,7 @@ public class Pantalla extends JPanel implements KeyListener{
         g.setColor(Color.black);
         g.fillRect(0, 0, getWidth(), getHeight());
         
-        formas.Generar(g);
+        FormaActual.Generar(g);
 
 //dibujar cuadricula
        
@@ -74,18 +109,19 @@ public class Pantalla extends JPanel implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
-            formas.Rapido(); 
+            FormaActual.Rapido(); 
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            formas.MovDerecha();
+            FormaActual.MovDerecha();
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            formas.MovIzquierda();
+            FormaActual.MovIzquierda();
         }
     }
  
     @Override
     public void keyReleased(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
-            formas.Normal();
+            FormaActual.Normal();
+            //te amo ale
         }
     }
 

@@ -16,7 +16,7 @@ public class Formas {
     private boolean Colicion=false; 
     private int [][]Coords;
     
-    public Formas(int [][]Coords){
+    public Formas(int [][]Coords, Pantalla pantalla, Color color){
          this.Coords=Coords;
     }
     
