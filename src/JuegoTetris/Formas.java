@@ -49,6 +49,7 @@ public class Formas {
                                         
                 }
             }
+                CompletarLn();
                 pantalla.SiguienteForma();  
                         
                 return;
@@ -97,6 +98,60 @@ public class Formas {
                 InicTiempo =System.currentTimeMillis();
             }
     }
+    public void CompletarLn(){
+        int FinalLn = pantalla.getPantalla().length-1;
+        for(int InicioLn= pantalla.getPantalla().length-1;InicioLn>0;InicioLn--){
+            int Contador = 0;
+            for(int col =0 ;col<pantalla.getPantalla()[0].length;col++){
+                if(pantalla.getPantalla()[InicioLn][col]!=null){
+                    Contador++;
+                }
+                pantalla.getPantalla()[FinalLn][col]=pantalla.getPantalla()[InicioLn][col];
+            }
+            if(Contador<pantalla.getPantalla()[0].length){
+                FinalLn--;
+            }
+        }
+    }
+    
+    public void Rotar(){
+        int[][]Rotar=CambiarMX(Coords);
+        FilaInversa(Rotar);
+        
+        //verificacion de rotacion con borde
+        if((x+Rotar[0].length>Pantalla.PantalaWidht)||(y+Rotar.length>20)){
+            return;
+        }
+        for(int fila=0;fila<Rotar.length;fila++){
+            for(int col=0;col<Rotar[fila].length;col++){
+                if(Rotar[fila][col]!=0){
+                    if(pantalla.getPantalla()[y+fila][x+col]!=null){
+                        return;
+                    }
+                }
+            }
+        }
+        Coords = Rotar;
+    }
+    
+    public int [][] CambiarMX(int [][]Matriz){
+        int [][] Modelo = new int [Matriz[0].length][Matriz.length];
+        for(int fila=0;fila<Matriz.length;fila++){
+            for(int col=0;col<Matriz[0].length;col++){
+                Modelo[col][fila]=Matriz[fila][col];
+            }
+        }
+        return Modelo;
+    }
+    
+    public void FilaInversa(int [][]matriz){
+        int mitad = matriz.length/2;
+        for(int fila=0; fila<(mitad);fila++){
+            int[] Modelo =matriz[fila];
+            matriz[fila]=matriz[matriz.length-fila-1];
+            matriz[matriz.length-fila-1]=Modelo;
+        }
+    }    
     public void Generar(Graphics g){
         //dibujar formas
         for(int fil =0; fil<Coords.length; fil++){

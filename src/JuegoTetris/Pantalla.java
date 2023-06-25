@@ -136,6 +136,8 @@ public class Pantalla extends JPanel implements KeyListener{
             FormaActual.MovDerecha();
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
             FormaActual.MovIzquierda();
+        }else if(e.getKeyCode()==KeyEvent.VK_UP){
+            FormaActual.Rotar();
         }
     }
  
