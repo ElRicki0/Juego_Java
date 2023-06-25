@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,10 +29,13 @@ public class Pantalla extends JPanel implements KeyListener{
     
     private Formas[] formas = new Formas[7];
     private Formas FormaActual;
+    private Random random;
     
     
     public Pantalla(){        
-    
+        random = new Random();
+        
+        
         formas[0] = new Formas(new int[][]{
             {1, 1, 1, 1} // Forma I 
         }, this, colors[0]);
@@ -84,7 +88,7 @@ public class Pantalla extends JPanel implements KeyListener{
     }
      
     public void SiguienteForma(){
-        FormaActual = formas[1];
+        FormaActual = formas[random.nextInt(formas.length)];
         FormaActual.Reset();
     }
 

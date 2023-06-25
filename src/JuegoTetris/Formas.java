@@ -55,12 +55,41 @@ public class Formas {
             }
             
             //Movimiento lateral (limites laterales)
+            boolean movX = true;
             if(!(x+MovX+Coords[0].length>10)&&!(x+MovX<0)){
-            x+=MovX;}
+            
+            for(int fil=0;fil<Coords.length; fil++){
+                for(int col=0;col<Coords[fil].length; col++){
+                    if(Coords[fil][col]!=0  ){
+                        if (pantalla.getPantalla()[y+fil][x+MovX+col]!=null) {                        
+                        movX=false;
+                        }
+                      
+                    }
+                }
+            }
+            if(movX){
+                x+=MovX;                
+            }
+       }
+            
             MovX=0;  
-            if(System.currentTimeMillis()-InicTiempo>TiempoDelayMovi){
+            
+            if(System.currentTimeMillis()-InicTiempo>TiempoDelayMovi) {
+                
                 if(!(y+1+Coords.length>PantalaHeigth)){
-                y++;}
+                    for (int Fil= 0;Fil<Coords.length;Fil++){
+                        for(int Col=0; Col<Coords[Fil]. length;Col++){
+                            if(Coords[Fil][Col]!=0){
+                                if(pantalla.getPantalla()[y+1+Fil][x+MovX+Col]!=null){
+                                    Colicion=true;
+                                }
+                            }
+                        }
+                    }if(!Colicion){
+                        y++;
+                    }
+                }
             else{
                 Colicion=true;
                 }
@@ -73,7 +102,7 @@ public class Formas {
         for(int fil =0; fil<Coords.length; fil++){
             for(int col=0; col<Coords[0].length; col++){
                 if(Coords[fil][col]!=0){
-                    g.setColor(Color.red);
+                    g.setColor(color);
                     g.fillRect(col*TamañoBloque+x*TamañoBloque, fil*TamañoBloque+y*TamañoBloque, TamañoBloque, TamañoBloque);
                 }
                 
