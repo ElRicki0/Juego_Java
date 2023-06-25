@@ -184,7 +184,7 @@ public class Pantalla extends JPanel implements KeyListener{
             }
         }
         
-        if (Estado==EstadoJuegoJugando){
+        if (Estado==EstadoJuegoFinal                ){
             if(e.getKeyCode()==KeyEvent.VK_SPACE){
                 for(int fila=0; fila<pantalla.length;fila++){
                     for(int col=0;col<pantalla[fila].length;col ++){
