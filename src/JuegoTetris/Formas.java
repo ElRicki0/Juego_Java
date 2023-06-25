@@ -25,12 +25,14 @@ public class Formas {
          this.color=color;
     }
     
-    public void SetX(int x){
-        this.x = x;
-    }    
-    public void Sety(int y){
-        this.y = y;
+    public int SetX() {
+        return x;
     }
+
+    public int SetY() {
+        return y;
+    }
+    
     public void Reset(){
         this.x=4;
         this.y=0;
@@ -176,5 +178,8 @@ public class Formas {
     }
     public void MovIzquierda(){
     MovX=-1;
+    }
+    public int[][] TenerCoords() {
+        return Coords;
     }
 }

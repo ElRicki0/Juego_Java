@@ -15,6 +15,12 @@ import javax.swing.Timer;
  * @author rnmel
  */
 public class Pantalla extends JPanel implements KeyListener{
+    public static int EstadoJuegoJugando= 0;
+    public static int EstadoJuegoPausa= 1;
+    public static int EstadoJuegoFinal= 2;
+    
+    private int Estado = EstadoJuegoJugando;
+
     
     private static int FPS=60;
     private static int Delay=FPS/1000;
@@ -84,12 +90,27 @@ public class Pantalla extends JPanel implements KeyListener{
             
             }
     private void Actualizar(){
-        FormaActual.Actualizar();
+        if(Estado==EstadoJuegoJugando){
+            FormaActual.Actualizar();
+        }
     }
      
     public void SiguienteForma(){
         FormaActual = formas[random.nextInt(formas.length)];
         FormaActual.Reset();
+        RevisarGmOv();
+    }
+    private void RevisarGmOv(){
+        int[][]Coords= FormaActual.TenerCoords();
+        for(int fila=0; fila<Coords.length;fila++){
+            for(int col=0; col<Coords[0].length;col++){
+            if(Coords[fila][col]!=0){
+                if(pantalla[fila+FormaActual.SetY()][col+FormaActual.SetX()] !=null){
+                    Estado=EstadoJuegoFinal;
+                }
+            }
+        }
+        }
     }
 
     @Override
@@ -121,7 +142,14 @@ public class Pantalla extends JPanel implements KeyListener{
         for(int col =0; col<PantalaWidht+1;col++){
         g.drawLine(col*TamañoBloque, 0, col*TamañoBloque, TamañoBloque * PantalaHeigth);
         }
-               
+        if(Estado==EstadoJuegoFinal){            
+        g.setColor(Color.RED);
+        g.drawString("Fin Del Juego", 200, 200);
+        }
+        if(Estado==EstadoJuegoPausa){            
+        g.setColor(Color.white);
+        g.drawString("Juego Pausado", 200, 200);
+        }
     }
     
     public Color[][]getPantalla(){
@@ -132,12 +160,48 @@ public class Pantalla extends JPanel implements KeyListener{
     public void keyPressed(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
             FormaActual.Rapido(); 
-        }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+        }
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             FormaActual.MovDerecha();
-        }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+        }
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){
             FormaActual.MovIzquierda();
-        }else if(e.getKeyCode()==KeyEvent.VK_UP){
+        }
+        if(e.getKeyCode()==KeyEvent.VK_UP){
             FormaActual.Rotar();
+        }
+        
+        if (Estado==EstadoJuegoFinal){
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                for(int fila=0; fila<pantalla.length;fila++){
+                    for(int col=0;col<pantalla[fila].length;col ++){
+                        pantalla[fila][col]=null;
+                                        
+                }
+            }
+                SiguienteForma();
+                Estado=EstadoJuegoJugando;
+            }
+        }
+        
+        if (Estado==EstadoJuegoJugando){
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                for(int fila=0; fila<pantalla.length;fila++){
+                    for(int col=0;col<pantalla[fila].length;col ++){
+                        pantalla[fila][col]=null;
+                                        
+                }
+            }
+                SiguienteForma();
+                Estado=EstadoJuegoJugando;
+            }
+        }
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+           if(Estado==EstadoJuegoJugando){
+            Estado=EstadoJuegoPausa;
+            }else if(Estado==EstadoJuegoPausa){
+                Estado=EstadoJuegoJugando;  
+            }                
         }
     }
  
