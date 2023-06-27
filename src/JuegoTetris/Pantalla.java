@@ -9,6 +9,9 @@ import java.awt.event.KeyListener;
 import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
+import java.awt.Font;
 
 /**
  *
