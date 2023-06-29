@@ -11,6 +11,7 @@ public class Ventana {
     public static final int WIDTH = 445, HEIGHT = 629;
 
     private Pantalla pantalla;
+
     private JFrame ventana;
 
     public Ventana() {
@@ -21,13 +22,16 @@ public class Ventana {
         ventana.setLocationRelativeTo(null);
 
         pantalla = new Pantalla();
+        
         ventana.add(pantalla);
-        ventana.addKeyListener(pantalla);
+       
+       ventana.addKeyListener(pantalla);
+           
         ventana.setVisible(true);
 
         reproducirMusica("/Musica/Tetris_Theme_Song.wav"); 
     }
-
+    
     public static void main(String[] args) {
         new Ventana();
     }

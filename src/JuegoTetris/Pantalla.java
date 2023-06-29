@@ -44,13 +44,40 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
     
     private Formas[] formas = new Formas[7];
-    private Formas FormaActual;
+    private static Formas FormaActual, SiguienteForma;
     private Random random;
     
+    private Timer Lapso = new Timer(300, new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Lapso.stop();
+        }
+    });
+
     
+    private int mouseX, mouseY;
+    private boolean leftClick = false;
+    private Rectangle pararLim, actualizarLim;
+
+    private boolean gamePaused = false;
+
+    private boolean gameOver = false;
+    
+     private int score = 0;
+     
     public Pantalla(){        
         random = new Random();
         
+        pausa = Image.loadImage("/pause.png");
+        reiniciar = Image.loadImage("/refresh.png");
+
+        mouseX = 0;
+        mouseY = 0;
+
+        pararLim = new Rectangle(350, 500, pausa.getWidth(), pausa.getHeight() + pausa.getHeight() / 2);
+        actualizarLim = new Rectangle(350, 500 - reiniciar.getHeight() - 20, reiniciar.getWidth(),
+                reiniciar.getHeight() + reiniciar.getHeight() / 2);        
         
         formas[0] = new Formas(new int[][]{
             {1, 1, 1, 1} // Forma I 
@@ -100,11 +127,23 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
             
             }
     private void Actualizar(){
-        if(Estado==EstadoJuegoJugando){
-            FormaActual.Actualizar();
+          if (pararLim.contains(mouseX, mouseY) && leftClick && !Lapso.isRunning() && !gameOver) {
+            Lapso.start();
+            gamePaused = !gamePaused;
         }
+
+        if (actualizarLim.contains(mouseX, mouseY) && leftClick) {
+            startGame();
+        }
+
+        if (gamePaused || gameOver) {
+            return;
+        }
+        
+     FormaActual.Actualizar();
     }
-     
+    
+   
     public void SiguienteForma(){
         FormaActual = formas[random.nextInt(formas.length)];
         FormaActual.Reset();
@@ -215,6 +254,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         }
     }
  
+   
     @Override
     public void keyReleased(KeyEvent e ){
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
@@ -226,43 +266,79 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
     public void keyTyped(KeyEvent arg0) {
         
     }
+    
+       public void startGame() {
+        stopGame();
+        SiguienteForma();
+        RevisarGmOv();
+        gameOver = false;
+        ciclo.start();
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-      
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-     
+    public void stopGame() {
+        score = 0;
+
+        for (int row = 0; row < pantalla.length; row++) {
+            for (int col = 0; col < pantalla[row].length; col++) {
+                pantalla[row][col] = null;
+            }
+        }
+        ciclo.stop();
+    }
+    
+        class GameLooper implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Actualizar();
+            repaint();
+        }
+
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-
-    @Override
+     @Override
     public void mouseDragged(MouseEvent e) {
-        
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
-    
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
-        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            leftClick = true;
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            leftClick = false;
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+        public void addScore() {
+        score++;
+    }        
 }
