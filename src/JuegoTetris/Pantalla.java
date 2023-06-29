@@ -1,29 +1,36 @@
 package JuegoTetris;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import java.awt.image.BufferedImage;
-import java.awt.Rectangle;
-import java.awt.Font;
 
 /**
  *
  * @author rnmel
  */
-public class Pantalla extends JPanel implements KeyListener{
+public class Pantalla extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
     public static int EstadoJuegoJugando= 0;
     public static int EstadoJuegoPausa= 1;
     public static int EstadoJuegoFinal= 2;
     
     private int Estado = EstadoJuegoJugando;
 
+    private static final long identificadorSerialUID = 1L;
+    
+    private BufferedImage pausa, reiniciar; 
     
     private static int FPS=60;
     private static int Delay=FPS/1000;
@@ -218,6 +225,41 @@ public class Pantalla extends JPanel implements KeyListener{
     @Override
     public void keyTyped(KeyEvent arg0) {
         
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+      
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+     
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     
