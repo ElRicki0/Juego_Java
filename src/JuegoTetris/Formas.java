@@ -4,10 +4,16 @@ import static JuegoTetris.Pantalla.PantalaHeigth;
 import static JuegoTetris.Pantalla.TamañoBloque;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Formas {
+        
     private int x= 4, y=0;
-    private int normal = 600;
+    private int normal = 300 ;
+    
+    
     private int rapid= 50;
     private int TiempoDelayMovi = normal;
     private long InicTiempo;
@@ -27,6 +33,7 @@ public class Formas {
     
     public int SetX() {
         return x;
+        
     }
 
     public int SetY() {

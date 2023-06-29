@@ -139,8 +139,10 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         if (gamePaused || gameOver) {
             return;
         }
-        
-     FormaActual.Actualizar();
+        if(Estado==EstadoJuegoJugando){
+            FormaActual.Actualizar();
+        }
+            
     }
     
    
@@ -165,7 +167,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.black);
+        g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
         
         FormaActual.Generar(g);
@@ -183,7 +185,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
                 }
             }
         
-        g.setColor(Color.white);
+        g.setColor(Color.lightGray);
         for(int fil = 0; fil<PantalaHeigth; fil++){
             
             g.drawLine(0, TamañoBloque *fil, TamañoBloque* PantalaWidht, TamañoBloque*fil);
@@ -195,8 +197,8 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         g.setColor(Color.RED);
         g.drawString("Fin Del Juego", 200, 200);
         }
-        if(Estado==EstadoJuegoPausa){            
-        g.setColor(Color.white);
+        if(Estado==EstadoJuegoPausa){  
+        g.setColor(Color.black);
         g.drawString("Juego Pausado", 200, 200);
         }
     }
@@ -219,19 +221,8 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         if(e.getKeyCode()==KeyEvent.VK_UP){
             FormaActual.Rotar();
         }
+                 
         
-        if (Estado==EstadoJuegoFinal){
-            if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                for(int fila=0; fila<pantalla.length;fila++){
-                    for(int col=0;col<pantalla[fila].length;col ++){
-                        pantalla[fila][col]=null;
-                                        
-                }
-            }
-                SiguienteForma();
-                Estado=EstadoJuegoJugando;
-            }
-        }
         
         if (Estado==EstadoJuegoFinal                ){
             if(e.getKeyCode()==KeyEvent.VK_SPACE){
@@ -276,7 +267,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
 
     }
 
-    public void stopGame() {
+    public  void stopGame() {
         score = 0;
 
         for (int row = 0; row < pantalla.length; row++) {

@@ -8,14 +8,14 @@ import javax.swing.JFrame;
 
 public class Ventana {
 
-    public static final int WIDTH = 445, HEIGHT = 629;
+    public static final int WIDTH = 317, HEIGHT = 640;
 
     private Pantalla pantalla;
 
     private JFrame ventana;
 
     public Ventana() {
-        JFrame ventana = new JFrame("Tetris RN");
+        JFrame ventana = new JFrame("Hardcore Tetris");
         ventana.setSize(WIDTH, HEIGHT);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setResizable(false);
@@ -29,7 +29,7 @@ public class Ventana {
            
         ventana.setVisible(true);
 
-        reproducirMusica("/Musica/Tetris_Theme_Song.wav"); 
+        reproducirMusica("/Musica/Tetris.wav"); 
     }
     
     public static void main(String[] args) {
