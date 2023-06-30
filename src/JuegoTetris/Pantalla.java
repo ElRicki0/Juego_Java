@@ -1,7 +1,6 @@
 package JuegoTetris;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -17,17 +16,16 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/**
- *
- * @author rnmel
- */
+//Declaración de las constantes EstadoJuegoJugando, EstadoJuegoPausa y EstadoJuegoFinal.
+
 public class Pantalla extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
     public static int EstadoJuegoJugando= 0;
     public static int EstadoJuegoPausa= 1;
     public static int EstadoJuegoFinal= 2;
-    
+    //Declaración de variables de instancia y asignación de valores iniciales.
     private int Estado = EstadoJuegoJugando;
 
+    //Declaración de variables estaticas y constantes para la configuración del juego.
     private static final long identificadorSerialUID = 1L;
     
     private BufferedImage pausa, reiniciar; 
@@ -38,11 +36,17 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
     public static final int PantalaWidht=10;
     public static final int PantalaHeigth=20;
     public static final int TamañoBloque=30;
+    //Declaracion del objeto Timer para controlar el ciclo de actualizacion del juego.
     private Timer ciclo;
+    
+    //Declaracion de una matriz de colores para representar la pantalla del juego.
     private Color [][] pantalla = new Color[PantalaHeigth][PantalaWidht];
+    
+    //Declaracion de un arreglo de colores para representar los colores de las formas.
     private Color[] colors = {Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"), 
         Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
     
+    //Declaración e inicializacion de las formas disponibles en el juego.
     private Formas[] formas = new Formas[7];
     private static Formas FormaActual, SiguienteForma;
     private Random random;
@@ -55,17 +59,20 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         }
     });
 
-    
+    // Declaracion de variables para controlar la posición del ratón y el estado del clic izquierdo.
     private int mouseX, mouseY;
     private boolean leftClick = false;
+    
+    //Declaracion de rectangulos para las areas de pausa y reinicio en la pantalla.
     private Rectangle pararLim, actualizarLim;
-
+    
+    //Declaración de variables para controlar el tiempo de pausa entre movimientos.
     private boolean gamePaused = false;
-
     private boolean gameOver = false;
     
      private int score = 0;
      
+    //Constructor de la clase Pantalla, donde se inicializan las variables y se crea la instancia del juego.
     public Pantalla(){        
         random = new Random();
         
@@ -126,6 +133,8 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
        ciclo.start();
             
             }
+    
+    // Metodo Actualizar para actualizar el estado del juego y gestionar las interacciones del jugador.
     private void Actualizar(){
           if (pararLim.contains(mouseX, mouseY) && leftClick && !Lapso.isRunning() && !gameOver) {
             Lapso.start();
@@ -145,12 +154,14 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
             
     }
     
-   
+   //Metodo SiguienteForma para seleccionar la siguiente forma aleatoria y reiniciar su posición.
     public void SiguienteForma(){
         FormaActual = formas[random.nextInt(formas.length)];
         FormaActual.Reset();
         RevisarGmOv();
     }
+    
+    //Metodo RevisarGmOv para comprobar si el juego ha terminado debido a que las formas alcanzan la parte superior de la pantalla.
     private void RevisarGmOv(){
         int[][]Coords= FormaActual.TenerCoords();
         for(int fila=0; fila<Coords.length;fila++){
@@ -172,7 +183,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         
         FormaActual.Generar(g);
 
-//dibujar cuadricula
+//Dibujar cuadricula
        
         for(int fila=0; fila<pantalla.length;fila++){
                 for(int col=0;col<pantalla[0].length;col ++){
@@ -327,9 +338,5 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-        public void addScore() {
-        score++;
-    }        
+    }      
 }
