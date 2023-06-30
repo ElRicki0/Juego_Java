@@ -1,4 +1,4 @@
-package JuegoTetris;
+ package JuegoTetris;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -34,6 +34,7 @@ public class Ventana {
     
     public static void main(String[] args) {
         new Ventana();
+        
     }
 
     public void reproducirMusica(String archivo) {

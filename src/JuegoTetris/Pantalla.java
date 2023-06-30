@@ -220,6 +220,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
     
     @Override
     public void keyPressed(KeyEvent e ){
+        
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
             FormaActual.Rapido(); 
         }
@@ -234,7 +235,7 @@ public class Pantalla extends JPanel implements KeyListener, MouseListener, Mous
         }
                  
         
-        
+        //repetir juego perdido
         if (Estado==EstadoJuegoFinal                ){
             if(e.getKeyCode()==KeyEvent.VK_SPACE){
                 for(int fila=0; fila<pantalla.length;fila++){
